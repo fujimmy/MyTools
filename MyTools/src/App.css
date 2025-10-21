@@ -1,0 +1,138 @@
+/* src/App.css */
+
+:root {
+  --header-height: 50px;
+  --sidebar-width-open: 240px;
+  --sidebar-width-closed: 64px; /* 像 Gemini 一樣的精簡寬度 */
+  --transition-speed: 0.25s; /* 較快的過渡速度 */
+  --sidebar-bg: #f7f9fb; /* 淺灰色背景 */
+  --text-color: #3c4043; /* 深色文字 */
+  --highlight-color: #e8f0fe; /* 選中項目背景 */
+}
+
+/* --- 全局設定 --- */
+html, body, #root, .app-container {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+/* --- 頂部導航欄 (Header) --- */
+.app-header {
+  background-color: #fff;
+  color: var(--text-color);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #dadce0;
+}
+
+/* --- 主內容區佈局 (Main Wrapper) --- */
+.main-wrapper {
+  display: flex;
+  height: calc(100% - var(--header-height));
+}
+
+/* --- 側邊欄 (Sidebar) --- */
+.sidebar {
+  width: var(--sidebar-width-open);
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  flex-shrink: 0;
+  transition: width var(--transition-speed) ease-in-out; /* 關鍵過渡效果 */
+  overflow-x: hidden;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 側邊欄 - 收合狀態 */
+.sidebar.collapsed {
+  width: var(--sidebar-width-closed);
+}
+
+/* --- 側邊欄 Header 與切換按鈕 --- */
+.sidebar-header {
+ height: 60px;
+  display: flex;
+  justify-content: flex-end; /* 展開時靠右 */
+  align-items: center;
+  padding: 0 10px;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center; /* 收合時置中 */
+  padding: 0;
+}
+
+.toggle-button {
+  background-color: transparent; /* 確保背景是透明的 */
+  border: none;                 /* 移除任何邊框 */
+  color: var(--text-color);
+  cursor: pointer;
+  /* 移除 border-radius 或設置為 0 */
+  border-radius: 0;             /* 確保沒有圓角或圓形 */
+  padding: 8px;                 /* 適當的內邊距 */
+  display: flex;                /* 讓圖標居中 */
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.1s; /* hover 過渡效果 */
+}
+
+.toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.08); /* 懸停時依然給一個淺灰色背景，讓它看起來可點擊 */
+  border-radius: 50%; /* 懸停時才顯示圓形背景 */
+}
+
+/* --- 導航列表 --- */
+.nav-list {
+  list-style: none;
+  padding: 0 8px; /* 左右留白 */
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 4px;
+}
+
+.nav-link-content {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  cursor: pointer;
+  border-radius: 20px; /* 像 Gemini 一樣的圓角 */
+  color: var(--text-color);
+  transition: background-color 0.1s;
+}
+
+.nav-link-content:hover {
+  background-color: var(--highlight-color);
+}
+
+.icon {
+  font-size: 20px;
+  min-width: 32px; /* 固定圖標佔位寬度 */
+}
+
+/* 關鍵點：控制文字的平滑過渡 */
+.text {
+  opacity: 1;
+  transition: opacity var(--transition-speed);
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.sidebar.collapsed .text {
+  opacity: 0; /* 收合時文字透明度為 0 */
+  visibility: hidden; /* 確保不佔空間 */
+}
+
+/* --- 主要內容區 (Content Area) --- */
+.content-area {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  /* 由於使用 flex，內容區會自動填滿剩餘空間，不需要 margin-left */
+}
