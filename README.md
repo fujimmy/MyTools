@@ -4,7 +4,10 @@
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-這個專案是一個基於 React、TypeScript 和 Vite 構建的現代單頁應用程式（SPA），專門用於整合各種日常開發和數據處理的實用工具。
+這個專案是一個基於 React、TypeScript 和 Vite 構建的現代單頁應用程式（SPA），專門用於整合目前開發工作上各種日常開發和數據處理的實用工具。
+也是順便練習前端技術Side Project。
+有任何想法歡迎一起討論~
+
 
 ---
 
