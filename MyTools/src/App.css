@@ -3,16 +3,27 @@
 :root {
   --header-height: 50px;
   --sidebar-width-open: 240px;
-  --sidebar-width-closed: 64px; /* 像 Gemini 一樣的精簡寬度 */
-  --transition-speed: 0.25s; /* 較快的過渡速度 */
-  --sidebar-bg: #f7f9fb; /* 淺灰色背景 */
-  --text-color: #3c4043; /* 深色文字 */
-  --highlight-color: #e8f0fe; /* 選中項目背景 */
+  --sidebar-width-closed: 64px;
+  /* 像 Gemini 一樣的精簡寬度 */
+  --transition-speed: 0.25s;
+  /* 較快的過渡速度 */
+  --sidebar-bg: #f7f9fb;
+  /* 淺灰色背景 */
+  --text-color: #3c4043;
+  /* 深色文字 */
+  --highlight-color: #e8f0fe;
+  /* 選中項目背景 */
 }
 
 /* --- 全局設定 --- */
-html, body, #root, .app-container {
-  height: 100%;
+html,
+body,
+#root,
+.app-container {
+  min-height: 100vh;
+  /* 確保佔滿整個視窗高度 */
+  width: 100%;
+  /* 確保佔滿整個視窗寬度 */
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #ffffff;
@@ -41,7 +52,8 @@ html, body, #root, .app-container {
   background-color: var(--sidebar-bg);
   color: var(--text-color);
   flex-shrink: 0;
-  transition: width var(--transition-speed) ease-in-out; /* 關鍵過渡效果 */
+  transition: width var(--transition-speed) ease-in-out;
+  /* 關鍵過渡效果 */
   overflow-x: hidden;
   box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
 }
@@ -53,47 +65,58 @@ html, body, #root, .app-container {
 
 /* --- 側邊欄 Header 與切換按鈕 --- */
 .sidebar-header {
- height: 60px;
+  height: 60px;
   display: flex;
-  justify-content: flex-end; /* 展開時靠右 */
+  justify-content: flex-end;
+  /* 展開時靠右 */
   align-items: center;
   padding: 0 10px;
 }
 
 .sidebar.collapsed .sidebar-header {
-  justify-content: center; /* 收合時置中 */
+  justify-content: center;
+  /* 收合時置中 */
   padding: 0;
 }
 
 /* 在側邊欄收合狀態下，隱藏所有子菜單 */
 .sidebar.collapsed .sub-menu {
   /* 確保在收合模式下看不到子菜單 */
-  display: none; 
+  display: none;
 }
 
 .toggle-button {
-  background-color: transparent; /* 確保背景是透明的 */
-  border: none;                 /* 移除任何邊框 */
+  background-color: transparent;
+  /* 確保背景是透明的 */
+  border: none;
+  /* 移除任何邊框 */
   color: var(--text-color);
   cursor: pointer;
   /* 移除 border-radius 或設置為 0 */
-  border-radius: 0;             /* 確保沒有圓角或圓形 */
-  padding: 8px;                 /* 適當的內邊距 */
-  display: flex;                /* 讓圖標居中 */
+  border-radius: 0;
+  /* 確保沒有圓角或圓形 */
+  padding: 8px;
+  /* 適當的內邊距 */
+  display: flex;
+  /* 讓圖標居中 */
   align-items: center;
   justify-content: center;
-  transition: background-color 0.1s; /* hover 過渡效果 */
+  transition: background-color 0.1s;
+  /* hover 過渡效果 */
 }
 
 .toggle-button:hover {
-  background-color: rgba(0, 0, 0, 0.08); /* 懸停時依然給一個淺灰色背景，讓它看起來可點擊 */
-  border-radius: 50%; /* 懸停時才顯示圓形背景 */
+  background-color: rgba(0, 0, 0, 0.08);
+  /* 懸停時依然給一個淺灰色背景，讓它看起來可點擊 */
+  border-radius: 50%;
+  /* 懸停時才顯示圓形背景 */
 }
 
 /* --- 導航列表 --- */
 .nav-list {
   list-style: none;
-  padding: 0 8px; /* 左右留白 */
+  padding: 0 8px;
+  /* 左右留白 */
   margin: 0;
 }
 
@@ -107,10 +130,12 @@ html, body, #root, .app-container {
   height: 40px;
   padding: 0 16px;
   cursor: pointer;
-  border-radius: 20px; /* 像 Gemini 一樣的圓角 */
+  border-radius: 20px;
+  /* 像 Gemini 一樣的圓角 */
   color: var(--text-color);
   transition: background-color 0.1s;
-  justify-content: flex-start;;
+  justify-content: flex-start;
+  ;
 }
 
 .nav-link-content:hover {
@@ -119,7 +144,8 @@ html, body, #root, .app-container {
 
 .icon {
   font-size: 20px;
-  min-width: 32px; /* 固定圖標佔位寬度 */
+  min-width: 32px;
+  /* 固定圖標佔位寬度 */
 }
 
 /* 關鍵點：控制文字的平滑過渡 */
@@ -131,8 +157,10 @@ html, body, #root, .app-container {
 }
 
 .sidebar.collapsed .text {
-  opacity: 0; /* 收合時文字透明度為 0 */
-  visibility: hidden; /* 確保不佔空間 */
+  opacity: 0;
+  /* 收合時文字透明度為 0 */
+  visibility: hidden;
+  /* 確保不佔空間 */
 }
 
 /* --- 主要內容區 (Content Area) --- */
@@ -147,7 +175,8 @@ html, body, #root, .app-container {
 
 /* 子菜單箭頭圖標的容器 */
 .submenu-toggle {
-  margin-left: auto; /* 推到最右邊 */
+  margin-left: auto;
+  /* 推到最右邊 */
   display: flex;
   align-items: center;
 }
@@ -156,14 +185,16 @@ html, body, #root, .app-container {
 .sub-menu {
   list-style: none;
   padding: 0;
-  margin: 4px 0 4px 0; /* 項目之間留白 */
+  margin: 4px 0 4px 0;
+  /* 項目之間留白 */
   /* 確保 sub-menu 在收合狀態下不影響佈局 */
 }
 
 .sub-item .nav-link-content {
   /* 子項目縮進效果 */
-  padding-left: 50px; 
-  height: 36px; /* 子項目可以稍微窄一點 */
+  padding-left: 50px;
+  height: 36px;
+  /* 子項目可以稍微窄一點 */
   font-size: 0.95em;
 }
 
@@ -176,12 +207,14 @@ html, body, #root, .app-container {
 /* 選中的導航項目高亮 */
 .nav-link-content.active {
   /* 使用您之前定義的 highlight-color */
-  background-color: var(--highlight-color); 
-  font-weight: bold; /* 可選：加粗文字 */
-  color: #1a73e8; /* 可選：使用品牌色作為選中文字色 */
+  background-color: var(--highlight-color);
+  font-weight: bold;
+  /* 可選：加粗文字 */
+  color: #1a73e8;
+  /* 可選：使用品牌色作為選中文字色 */
 }
 
 /* 確保子菜單選中時也能高亮 */
 .nav-link-content.sub-link.active {
-  background-color: var(--highlight-color); 
+  background-color: var(--highlight-color);
 }

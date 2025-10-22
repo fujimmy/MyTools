@@ -28,7 +28,10 @@ const navItems: NavItem[] = [
     text: '我的工具',
     // 注意：主項目通常沒有 path，或者 path 指向一個摘要頁面
     children: [
-      { id: 21, icon: '📝', text: 'Base64', path: '/tools/base64' }
+      { id: 21, icon: '🔑', text: 'Base64', path: '/tools/base64' },
+      { id: 22, icon: '📄', text: 'JSON Formatter', path: '/tools/json-formatter' },
+      { id: 23, icon: '🖥️', text: 'HTML Previewer', path: '/tools/html-previewer' },
+      { id: 24, icon: '📜', text: 'Markdown Previewer', path: '/tools/MarkdownPreviewer' }
     ]
   },
   { id: 3, icon: '💾', text: '存檔歷史', path: '/history' },

@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // �
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Content'; // 我们可以把原来的 Content 改名为 Dashboard
 import Base64Tool from './components/tools/base64';
+import JsonFormatter from './components/tools/JsonFormatter';
+import HtmlPreviewer from './components/tools/HtmlPreviewer';
+import MarkdownPreviewer from './components/tools/MarkdownPreviewer';
+
 import './App.css'; // 引入樣式文件
 
 const App: React.FC = () => {
@@ -31,6 +35,9 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/tools/base64" element={<Base64Tool />} />
+              <Route path="/tools/json-formatter" element={<JsonFormatter />} />
+              <Route path="/tools/html-previewer" element={<HtmlPreviewer />} />
+              <Route path="/tools/MarkdownPreviewer" element={<MarkdownPreviewer />} />
             </Routes>
           </main>
         </div>
