@@ -1,12 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { marked } from 'marked';
 
-// 定義複製狀態
-type CopyStatus = 'none' | 'copied';
-
 const MarkdownPreviewer: React.FC = () => {
     const [markdownInput, setMarkdownInput] = useState<string>('');
-    const [copyStatus, setCopyStatus] = useState<CopyStatus>('none');
     const htmlOutput = useMemo(() => marked(markdownInput), [markdownInput]);   
     
     const containerStyle: React.CSSProperties = {
