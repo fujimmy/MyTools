@@ -1,7 +1,9 @@
 // src/App.tsx
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // 引入路由组件
 import Sidebar from './components/Sidebar';
-import Content from './components/Content';
+import Dashboard from './components/Content'; // 我们可以把原来的 Content 改名为 Dashboard
+import Base64Tool from './components/tools/base64';
 import './App.css'; // 引入樣式文件
 
 const App: React.FC = () => {
@@ -14,21 +16,26 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app-container">      
+    <Router>
+      <div className="app-container">
 
-      <div className={`main-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
-        
-        {/* 傳遞切換函數給 Sidebar */}
-        <Sidebar 
-          isCollapsed={isCollapsed} 
-          toggleSidebar={toggleSidebar} 
-        />
-        
-        <main className="content-area">
-          <Content />
-        </main>
+        <div className={`main-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
+
+          {/* 傳遞切換函數給 Sidebar */}
+          <Sidebar
+            isCollapsed={isCollapsed}
+            toggleSidebar={toggleSidebar}
+          />
+
+          <main className="content-area">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/tools/base64" element={<Base64Tool />} />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 

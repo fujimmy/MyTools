@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# MyTools - 開發者實用工具箱
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Currently, two official plugins are available:
+這個專案是一個基於 React、TypeScript 和 Vite 構建的現代單頁應用程式（SPA），專門用於整合各種日常開發和數據處理的實用工具。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ 專案特色
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **現代 UI 佈局：** 採用類似 Google Gemini 的簡潔設計，配備可收合的側邊欄（Icons-Only 模式）。
+* **技術棧：** 使用 Vite 快速啟動和打包，基於 React 19 和 TypeScript 進行開發。
+* **模塊化側邊欄：** 實現了巢狀（Collapsible）菜單結構，支援主項目展開和子項目導航。
+* **路由管理：** 使用 `react-router-dom` 實現流暢的頁面切換和選中高亮（Active State）。
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 快速啟動
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 前置條件
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+請確保您的環境中已安裝 Node.js (v18+) 和 npm。
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. 安裝依賴項
+
+在專案根目錄下（確認 `package.json` 存在於此目錄），執行安裝所有必要的套件：
+
+```bash
+npm install
+```
+### 2.啟動開發伺服器
+執行以下指令啟動 Vite 開發伺服器。專案將會在 http://localhost:5173/ 啟動：
+```bash
+npm run dev
+```
+### 3.專案打包
+如果您需要將專案打包部署到生產環境：
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ 已實現的工具清單
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Base64 編解碼工具 (`/tools/base64`)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| 功能 | 描述 |
+| :--- | :--- |
+| **雙向轉換** | 單一按鈕實現明文 ↔ Base64 文本的互轉。 |
+| **字符集支持**| 提供 **UTF-8**（推薦，支援中文）和 **ASCII** 兩種編碼選項。 |
+| **錯誤處理** | 針對無效的 Base64 格式提供錯誤提示。 |
