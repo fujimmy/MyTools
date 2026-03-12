@@ -1,9 +1,34 @@
 import React, { useState, useMemo } from 'react';
 import { marked } from 'marked';
+import { saveHistoryItem } from '../../utils/historyStore';
 
 const MarkdownPreviewer: React.FC = () => {
     const [markdownInput, setMarkdownInput] = useState<string>('');
-    const htmlOutput = useMemo(() => marked(markdownInput), [markdownInput]);   
+    const [saveStatus, setSaveStatus] = useState<'none' | 'saved'>('none');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const htmlOutput = useMemo(() => {
+        const parsed = marked(markdownInput);
+        return typeof parsed === 'string' ? parsed : '';
+    }, [markdownInput]);
+
+    const handleSaveCurrent = () => {
+        setErrorMessage('');
+
+        if (markdownInput.trim() === '') {
+            setErrorMessage('尚無可儲存資料，請先輸入 Markdown。');
+            return;
+        }
+
+        saveHistoryItem({
+            tool: 'markdown-previewer',
+            action: 'render',
+            input: markdownInput,
+            output: htmlOutput,
+        });
+
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus('none'), 2000);
+    };
     
     const containerStyle: React.CSSProperties = {
         padding: '20px',
@@ -36,6 +61,30 @@ const MarkdownPreviewer: React.FC = () => {
                 在左側輸入 Markdown 文本。
             </p>
 
+            {errorMessage && (
+                <p style={{ color: '#d32f2f', border: '1px solid #d32f2f', padding: '8px', borderRadius: '5px', margin: 0 }}>
+                    {errorMessage}
+                </p>
+            )}
+
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <button
+                    onClick={handleSaveCurrent}
+                    style={{
+                        padding: '8px 15px',
+                        backgroundColor: '#2e7d32',
+                        color: 'white',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '5px',
+                    }}
+                >
+                    儲存此次轉換
+                </button>
+
+                {saveStatus === 'saved' && <span style={{ color: '#2e7d32' }}>✅ 已儲存</span>}
+            </div>
+
             <div style={responsiveSplitStyle}>
 
                 {/* === 1. Markdown 輸入區域 (左側) === */}
@@ -45,7 +94,11 @@ const MarkdownPreviewer: React.FC = () => {
                         id="markdownInput"
                         rows={15}
                         value={markdownInput}
-                        onChange={(e) => setMarkdownInput(e.target.value)}
+                        onChange={(e) => {
+                            setMarkdownInput(e.target.value);
+                            setSaveStatus('none');
+                            setErrorMessage('');
+                        }}
                         placeholder={"請輸入 Markdown 文本，例如：\n# 這是標題一\n\n這是一段 **粗體** 和 *斜體* 的文本。\n\n* 列表項目一\n* 列表項目二\n\n```javascript\n// 這是程式碼區塊\nconsole.log(\"Hello world\");\n```\n\n[Google 連結](https://www.google.com)"}
                         style={{
                             width: '100%',

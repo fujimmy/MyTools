@@ -3,6 +3,7 @@ import React, { useState } from 'react'; // 引入 useState
 import { FiMenu } from 'react-icons/fi';
 // 引入箭頭圖標用於子菜單收合
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { FiAlertCircle } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 
 // 1. 更新介面：NavItem 可以包含一個子項目陣列
@@ -151,6 +152,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
       {/* 3. 底部區域 */}
       <div className="sidebar-footer">
         {!isCollapsed && <span>版本 1.0.0</span>}
+        <a
+          href="https://github.com/fujimmy/MyTools/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="issue-button"
+          title="回報問題"
+          data-testid="issue-report-button"
+        >
+          <FiAlertCircle size={20} />
+          {!isCollapsed && <span>回報 Issue</span>}
+        </a>
       </div>
 
     </nav>

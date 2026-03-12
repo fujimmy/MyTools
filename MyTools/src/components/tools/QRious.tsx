@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
  import QRious from 'qrious';
  import jsQR from 'jsqr';
+import { saveHistoryItem } from '../../utils/historyStore';
 
 /**
  * QR Code 編碼/解碼工具組件
@@ -10,6 +11,8 @@ const App: React.FC = () => {
     const [inputValue, setInputValue] = useState('https://www.google.com/search?q=Vite+React+TS');
     const [decodeResult, setDecodeResult] = useState<{ text: string, error: string } | null>(null);
     const [encodeError, setEncodeError] = useState('');
+    const [saveStatus, setSaveStatus] = useState<'none' | 'saved-encode' | 'saved-decode'>('none');
+    const [lastDecodeSource, setLastDecodeSource] = useState('');
 
     // Canvas 參考
     const qrCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -96,8 +99,11 @@ const App: React.FC = () => {
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDecodeResult(null); 
+        setSaveStatus('none');
         const file = event.target.files?.[0];
         if (!file) return;
+
+        setLastDecodeSource(file.name);
 
         if (!file.type.startsWith('image/')) {
             setDecodeResult({ text: '', error: '請選擇有效的圖片檔案。' });
@@ -112,6 +118,49 @@ const App: React.FC = () => {
             }
         };
         reader.readAsDataURL(file);
+    };
+
+    const handleSaveEncode = () => {
+        if (!inputValue.trim()) {
+            setEncodeError('尚無可儲存的編碼資料。');
+            return;
+        }
+
+        saveHistoryItem({
+            tool: 'qrious',
+            action: 'encode',
+            input: inputValue,
+            output: inputValue,
+            metadata: {
+                mode: 'encode',
+            },
+        });
+
+        setSaveStatus('saved-encode');
+        setTimeout(() => setSaveStatus('none'), 2000);
+    };
+
+    const handleSaveDecode = () => {
+        if (!decodeResult) {
+            return;
+        }
+
+        const outputText = decodeResult.error ? `錯誤: ${decodeResult.error}` : decodeResult.text;
+
+        saveHistoryItem({
+            tool: 'qrious',
+            action: 'decode',
+            input: lastDecodeSource || '(未記錄檔名)',
+            output: outputText,
+            metadata: {
+                mode: 'decode',
+                source: lastDecodeSource || 'unknown',
+                success: !decodeResult.error,
+            },
+        });
+
+        setSaveStatus('saved-decode');
+        setTimeout(() => setSaveStatus('none'), 2000);
     };
 
     // ==============================================================
@@ -140,8 +189,23 @@ const App: React.FC = () => {
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 resize-none h-32 mb-4 font-mono text-sm"
                         placeholder="請輸入要編碼的文字、網址或資料..."
                         value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
+                        onChange={(e) => {
+                            setInputValue(e.target.value);
+                            setSaveStatus('none');
+                        }}
                     />
+
+                    <div className="mb-4 flex items-center gap-3">
+                        <button
+                            onClick={handleSaveEncode}
+                            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+                        >
+                            儲存此次轉換
+                        </button>
+                        {saveStatus === 'saved-encode' && (
+                            <span className="text-sm text-green-700">✅ 編碼資料已儲存</span>
+                        )}
+                    </div>
                     
                     {encodeError && (
                         <p className="text-red-500 text-sm mb-4 bg-red-50 p-2 rounded-lg">{encodeError}</p>
@@ -192,6 +256,19 @@ const App: React.FC = () => {
                             </div>
                         ) : (
                             <p className="text-gray-500">請上傳包含 QR Code 的圖片來進行解碼。</p>
+                        )}
+                    </div>
+
+                    <div className="mt-4 flex items-center gap-3">
+                        <button
+                            onClick={handleSaveDecode}
+                            disabled={!decodeResult}
+                            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+                        >
+                            儲存此次轉換
+                        </button>
+                        {saveStatus === 'saved-decode' && (
+                            <span className="text-sm text-green-700">✅ 解碼資料已儲存</span>
                         )}
                     </div>
                 </div>

@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // 引入路由组件
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Content'; // 我们可以把原来的 Content 改名为 Dashboard
-import Base64Tool from './components/tools/base64';
+import Base64Tool from './components/tools/base64.tsx';
 import JsonFormatter from './components/tools/JsonFormatter';
 import HtmlPreviewer from './components/tools/HtmlPreviewer';
 import MarkdownPreviewer from './components/tools/MarkdownPreviewer';
 import QRCodePreviewer from './components/tools/QRious';
+import HistoryPage from './components/History';
 
 import './App.css'; // 引入樣式文件
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
               <Route path="/tools/html-previewer" element={<HtmlPreviewer />} />
               <Route path="/tools/MarkdownPreviewer" element={<MarkdownPreviewer />} />
               <Route path="/tools/QRious" element={<QRCodePreviewer />} />
+              <Route path="/history" element={<HistoryPage />} />
             </Routes>
           </main>
         </div>

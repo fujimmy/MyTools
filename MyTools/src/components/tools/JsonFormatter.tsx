@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { saveHistoryItem } from '../../utils/historyStore';
 
 // 定義縮進空格的數量
 const INDENT_SPACES = 2;
@@ -9,6 +10,13 @@ type JsonPrimitive = string | number | boolean | null;
 type JsonObject = { [key: string]: JsonValue };
 type JsonArray = JsonValue[];
 type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+type JsonConversionAction = 'format' | 'minify';
+
+interface LastJsonConversion {
+    action: JsonConversionAction;
+    input: string;
+    output: string;
+}
 
 const JsonFormatter: React.FC = () => {
     // 狀態：管理 JSON 輸入/輸出文本
@@ -23,6 +31,8 @@ const JsonFormatter: React.FC = () => {
     const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({});
     // 狀態：管理樹狀搜尋關鍵字
     const [searchKeyword, setSearchKeyword] = useState<string>('');
+    const [lastConversion, setLastConversion] = useState<LastJsonConversion | null>(null);
+    const [saveStatus, setSaveStatus] = useState<'none' | 'saved'>('none');
 
     const normalizedSearchKeyword = searchKeyword.trim().toLowerCase();
 
@@ -321,20 +331,28 @@ const JsonFormatter: React.FC = () => {
     const handleFormat = () => {
         setError('');
         setCopyStatus('none');
+        setSaveStatus('none');
 
         if (jsonInput.trim() === '') {
             return;
         }
 
         try {
+            const sourceJson = jsonInput;
             const parsedObject = JSON.parse(jsonInput) as JsonValue;
             const formattedJson = JSON.stringify(parsedObject, null, INDENT_SPACES);
             setJsonInput(formattedJson);
             setParsedJson(parsedObject);
             setExpandedNodes({});
             setSearchKeyword('');
+            setLastConversion({
+                action: 'format',
+                input: sourceJson,
+                output: formattedJson,
+            });
         } catch (e) {
             setParsedJson(null);
+            setLastConversion(null);
             if (e instanceof Error) {
                 setError(`JSON 語法錯誤：${e.message}`);
             } else {
@@ -349,20 +367,28 @@ const JsonFormatter: React.FC = () => {
     const handleMinify = () => {
         setError('');
         setCopyStatus('none');
+        setSaveStatus('none');
 
         if (jsonInput.trim() === '') {
             return;
         }
 
         try {
+            const sourceJson = jsonInput;
             const parsedObject = JSON.parse(jsonInput) as JsonValue;
             const minifiedJson = JSON.stringify(parsedObject);
             setJsonInput(minifiedJson);
             setParsedJson(parsedObject);
             setExpandedNodes({});
             setSearchKeyword('');
+            setLastConversion({
+                action: 'minify',
+                input: sourceJson,
+                output: minifiedJson,
+            });
         } catch (e) {
             setParsedJson(null);
+            setLastConversion(null);
             if (e instanceof Error) {
                 setError(`JSON 語法錯誤：${e.message}`);
             } else {
@@ -381,6 +407,27 @@ const JsonFormatter: React.FC = () => {
         setParsedJson(null);
         setExpandedNodes({});
         setSearchKeyword('');
+        setLastConversion(null);
+        setSaveStatus('none');
+    };
+
+    const handleSaveCurrent = () => {
+        setError('');
+
+        if (!lastConversion) {
+            setError('尚無可儲存的轉換結果，請先執行格式化或壓縮。');
+            return;
+        }
+
+        saveHistoryItem({
+            tool: 'json-formatter',
+            action: lastConversion.action,
+            input: lastConversion.input,
+            output: lastConversion.output,
+        });
+
+        setSaveStatus('saved');
+        setTimeout(() => setSaveStatus('none'), 2000);
     };
 
     return (
@@ -430,6 +477,8 @@ const JsonFormatter: React.FC = () => {
                         setParsedJson(null);
                         setExpandedNodes({});
                         setSearchKeyword('');
+                        setLastConversion(null);
+                        setSaveStatus('none');
                     }}
                     placeholder="請在這裡貼上 JSON 數據進行格式化或校驗..."
                     style={{
@@ -466,6 +515,17 @@ const JsonFormatter: React.FC = () => {
                 >
                     清空 (Clear)
                 </button>
+
+                <button
+                    onClick={handleSaveCurrent}
+                    style={{ padding: '10px 15px', backgroundColor: '#2e7d32', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '5px' }}
+                >
+                    儲存此次轉換
+                </button>
+
+                {saveStatus === 'saved' && (
+                    <span style={{ color: '#2e7d32', alignSelf: 'center' }}>✅ 已儲存</span>
+                )}
             </div>
 
             {/* 樹狀瀏覽區塊（格式化後顯示） */}

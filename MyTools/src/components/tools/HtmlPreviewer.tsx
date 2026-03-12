@@ -1,12 +1,15 @@
 // src/components/tools/HtmlPreviewer.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { html as html_beautify } from 'js-beautify';
+import { saveHistoryItem } from '../../utils/historyStore';
 
 const HtmlPreviewer: React.FC = () => {
   // 狀態：管理 HTML/CSS 輸入文本
   const [htmlInput, setHtmlInput] = useState<string>(
     '<h1>Hello, MyTools!</h1>\n<p style="color: blue;">在這裡輸入你的 HTML 和 CSS 代碼。</p>'
   );
+  const [saveStatus, setSaveStatus] = useState<'none' | 'saved'>('none');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   // Ref：用於指向 iframe 元素
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -19,10 +22,29 @@ const HtmlPreviewer: React.FC = () => {
     end_with_newline: true    // 結尾添加換行
   };
 
+  const buildPreviewHtml = (content: string): string => {
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>HTML 預覽</title>
+          <style>
+            body { margin: 10px; font-family: sans-serif; }
+          </style>
+        </head>
+        <body>
+          ${content}
+        </body>
+      </html>
+    `;
+  };
+
   // === [ 新增：HTML 格式化函數 ] ===
   const handleFormatHtml = () => {
     try {
       if (htmlInput.trim() === '') return;
+      setErrorMessage('');
+      setSaveStatus('none');
       
       // 使用 js-beautify 庫格式化 HTML
       const formattedHtml = html_beautify(htmlInput, beautifyOptions);
@@ -33,8 +55,27 @@ const HtmlPreviewer: React.FC = () => {
     } catch (error) {
       // 雖然 js-beautify 不常拋出錯誤，但最好還是處理一下
       console.error("HTML 格式化失敗:", error);
-      alert("HTML 格式化失敗，請檢查代碼是否有嚴重錯誤。");
+      setErrorMessage('HTML 格式化失敗，請檢查代碼是否有嚴重錯誤。');
     }
+  };
+
+  const handleSaveCurrent = () => {
+    setErrorMessage('');
+
+    if (htmlInput.trim() === '') {
+      setErrorMessage('尚無可儲存資料，請先輸入 HTML。');
+      return;
+    }
+
+    saveHistoryItem({
+      tool: 'html-previewer',
+      action: 'preview',
+      input: htmlInput,
+      output: buildPreviewHtml(htmlInput),
+    });
+
+    setSaveStatus('saved');
+    setTimeout(() => setSaveStatus('none'), 2000);
   };
 
   // === 核心邏輯：將 HTML 內容注入 Iframe ===
@@ -50,21 +91,7 @@ const HtmlPreviewer: React.FC = () => {
         // 構建完整的 HTML 頁面內容
         // 這裡將用戶的輸入直接作為 <body> 的內容
         // 如果需要完整的 CSS 支持，用戶可能需要自己包含 <style> 標籤
-        const fullHtml = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>HTML 預覽</title>
-              <style>
-                /* 確保預覽內容不會超出範圍 */
-                body { margin: 10px; font-family: sans-serif; }
-              </style>
-            </head>
-            <body>
-              ${htmlInput}
-            </body>
-          </html>
-        `;
+        const fullHtml = buildPreviewHtml(htmlInput);
 
         // 寫入內容到 iframe
         iframeDoc.open();
@@ -78,6 +105,29 @@ const HtmlPreviewer: React.FC = () => {
     <div style={{ padding: '20px' }}>
       <h2>HTML 預覽器</h2>
       <p style={{ marginBottom: '15px' }}>在左側輸入 HTML/CSS 代碼，右側即時查看渲染結果。</p>      
+
+      {errorMessage && (
+        <p style={{ color: '#d32f2f', border: '1px solid #d32f2f', padding: '8px', borderRadius: '5px' }}>
+          {errorMessage}
+        </p>
+      )}
+
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '12px', alignItems: 'center' }}>
+        <button
+          onClick={handleSaveCurrent}
+          style={{
+            padding: '8px 15px',
+            backgroundColor: '#2e7d32',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '5px'
+          }}
+        >
+          儲存此次轉換
+        </button>
+        {saveStatus === 'saved' && <span style={{ color: '#2e7d32' }}>✅ 已儲存</span>}
+      </div>
 
       <div style={{ display: 'flex', gap: '20px', height: '600px' }}>
         
@@ -103,7 +153,11 @@ const HtmlPreviewer: React.FC = () => {
             id="htmlInput"
             rows={20}
             value={htmlInput}
-            onChange={(e) => setHtmlInput(e.target.value)}
+            onChange={(e) => {
+              setHtmlInput(e.target.value);
+              setErrorMessage('');
+              setSaveStatus('none');
+            }}
             placeholder="請輸入 HTML/CSS 代碼..."
             style={{ 
               flex: 1, 
