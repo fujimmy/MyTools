@@ -151,3 +151,16 @@ git push origin main
 cd MyTools
 npm run build
 ```
+
+### `Get Pages site failed. Error: Not Found`（GitHub Actions）
+
+如果在 `actions/configure-pages` 出現這個錯誤，請確認：
+
+1. 進入 `Settings` → `Pages`
+2. `Build and deployment` 的 `Source` 已選擇 `GitHub Actions`
+3. 倉庫有權限啟用 Pages（若為 Organization，需管理員允許）
+
+本專案 workflow 已設定：
+
+- `.github/workflows/pages.yml` 使用 `actions/configure-pages@v5`
+- 並加上 `enablement: true` 以支援首次自動啟用
