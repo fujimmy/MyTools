@@ -114,7 +114,7 @@ npm run build
 ### 1) 確認已提交以下檔案
 
 - `MyTools/vite.config.ts`（已設定 Pages 用 `base`）
-- `MyTools/src/App.tsx`（已使用 `HashRouter`）
+- `MyTools/src/App.tsx`（已使用 `BrowserRouter`）
 - `.github/workflows/pages.yml`（自動建置與部署）
 
 ### 2) 推送到 `main`
@@ -136,6 +136,7 @@ git push origin main
 
 - 到 `Actions` 分頁確認 `Deploy MyTools to GitHub Pages` 成功
 - 網址格式：`https://<github-username>.github.io/<repository-name>/`
+- 目前為乾淨網址（不含 `#`），例如：`https://fujimmy.github.io/MyTools/`
 
 ---
 
@@ -164,3 +165,4 @@ npm run build
 
 - `.github/workflows/pages.yml` 使用 `actions/configure-pages@v5`
 - 並加上 `enablement: true` 以支援首次自動啟用
+- 另外會自動建立 `404.html`（SPA fallback）以支援 `BrowserRouter`

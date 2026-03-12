@@ -36,6 +36,9 @@ jobs:
         working-directory: MyTools
         run: npm run build
 
+      - name: Create SPA fallback page
+        run: cp MyTools/dist/index.html MyTools/dist/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
