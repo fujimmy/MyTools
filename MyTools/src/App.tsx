@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // 引入路由组件
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // 引入路由组件
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Content'; // 我们可以把原来的 Content 改名为 Dashboard
 import Base64Tool from './components/tools/base64';

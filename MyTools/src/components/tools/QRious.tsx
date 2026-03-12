@@ -2,14 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
  import QRious from 'qrious';
  import jsQR from 'jsqr';
 
-
-// 類型定義
-interface QriousLib { new (options: any): any; }
-interface JsQRFunc { (data: Uint8ClampedArray, width: number, height: number, opts?: any): { data: string } | null; }
-
-const QriousLib: QriousLib = QRious as any;
-const JsQRFunc: JsQRFunc = jsQR as any;
-
 /**
  * QR Code 編碼/解碼工具組件
  */
@@ -42,7 +34,7 @@ const App: React.FC = () => {
 
         try {
             // 使用模擬的 QRious 類別生成 QR Code
-            new QriousLib({
+            new QRious({
                 element: qrCanvasRef.current,
                 value: inputValue,
                 size: 256,
@@ -88,7 +80,7 @@ const App: React.FC = () => {
             const imageData = ctx.getImageData(0, 0, img.width, img.height);
             
             // 使用模擬的 jsQR 進行解碼
-            const code = JsQRFunc(imageData.data, imageData.width, imageData.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height);
 
             if (code) {
                 setDecodeResult({ text: code.data, error: '' });
@@ -139,7 +131,7 @@ const App: React.FC = () => {
                 {/* ======================= 編碼區塊 (ENCODER) ======================= */}
                 <div className="bg-white p-6 rounded-xl shadow-lg border border-indigo-100">
                     <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <svg className="w-6 h-6 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        <svg className="w-6 h-6 mr-2 text-indigo-500" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                         1. 編碼 (Encode)
                     </h2>
                     
@@ -167,7 +159,7 @@ const App: React.FC = () => {
                 {/* ======================= 解碼區塊 (DECODER) ======================= */}
                 <div className="bg-white p-6 rounded-xl shadow-lg border border-green-100">
                     <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <svg className="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <svg className="w-6 h-6 mr-2 text-green-500" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         2. 解碼 (Decode)
                     </h2>
 
@@ -204,6 +196,15 @@ const App: React.FC = () => {
                     </div>
                 </div>
             </div>    
+
+            {/* 解碼使用的隱藏臨時 Canvas */}
+            <canvas
+                ref={tempCanvasRef}
+                width="1"
+                height="1"
+                style={{ display: 'none' }}
+                aria-hidden="true"
+            ></canvas>
         </div>
     );
 };

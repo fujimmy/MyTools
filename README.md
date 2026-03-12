@@ -4,19 +4,32 @@
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-這個專案是一個基於 React、TypeScript 和 Vite 構建的現代單頁應用程式（SPA），專門用於整合目前開發工作上各種日常開發和數據處理的實用工具。
-也是順便練習前端技術Side Project。
-有任何想法歡迎一起討論~
-
+這是一個以 React + TypeScript + Vite 建置的工具型 SPA，整合常用的開發與資料處理小工具。
 
 ---
 
 ## ✨ 專案特色
 
-* **現代 UI 佈局：** 採用類似 Google Gemini 的簡潔設計，配備可收合的側邊欄（Icons-Only 模式）。
-* **技術棧：** 使用 Vite 快速啟動和打包，基於 React 19 和 TypeScript 進行開發。
-* **模塊化側邊欄：** 實現了巢狀（Collapsible）菜單結構，支援主項目展開和子項目導航。
-* **路由管理：** 使用 `react-router-dom` 實現流暢的頁面切換和選中高亮（Active State）。
+- 類似 Gemini 的簡潔介面與可收合側邊欄。
+- `react-router-dom` 路由切換，工具頁面可獨立存取。
+- 模組化元件設計，方便持續新增工具。
+- 支援本地開發、正式打包與靜態站預覽。
+
+---
+
+## 📁 目錄結構（重要）
+
+本倉庫是「雙層」目錄，真正的前端專案在 `MyTools/` 子資料夾：
+
+```text
+MyTools/
+├─ README.md                # 本文件
+└─ MyTools/
+	├─ package.json          # npm 指令要在這層執行
+	├─ src/
+	├─ dist/
+	└─ start_server.bat
+```
 
 ---
 
@@ -24,89 +37,117 @@
 
 ### 前置條件
 
-請確保您的環境中已安裝 Node.js (v18+) 和 npm。
+- Node.js 18+
+- npm 9+
 
-### 1. 安裝依賴項
-
-在專案根目錄下（確認 `package.json` 存在於此目錄），執行安裝所有必要的套件：
+### 方式 A（推薦）
 
 ```bash
+cd MyTools
 npm install
-```
-### 2.啟動開發伺服器
-執行以下指令啟動 Vite 開發伺服器。專案將會在 http://localhost:5173/ 啟動：
-```bash
 npm run dev
 ```
-### 3.專案打包
-如果您需要將專案打包部署到生產環境：
+
+### 方式 B（在倉庫根目錄直接執行）
+
 ```bash
-npm run build
+npm --prefix MyTools install
+npm --prefix MyTools run dev
 ```
 
-## 🛠️ 已實現的工具清單
+開發站預設啟動於 <http://localhost:5173/>。
 
-### 1.Base64 編解碼工具 (`/tools/base64`)
+---
 
-| 功能 | 描述 |
-| :--- | :--- |
-| **雙向轉換** | 單一按鈕實現明文 ↔ Base64 文本的互轉。 |
-| **字符集支持**| 提供 **UTF-8**（推薦，支援中文）和 **ASCII** 兩種編碼選項。 |
-| **錯誤處理** | 針對無效的 Base64 格式提供錯誤提示。 |
+## 🧪 常用指令
 
-### 2.JSON 格式化 / 校驗器 (/tools/json-formatter)
+請在 `MyTools/` 子資料夾執行：
 
-|功能	|描述|
-| :--- | :--- |
-|**格式化 (Format)**|	將壓縮的 JSON 美化為帶縮進和換行的格式。|
-|**壓縮 (Minify)**|	將格式化的 JSON 轉為最小化的單行文本。|
-|**語法校驗**|	針對無效的 JSON 語法提供錯誤訊息。|
+```bash
+npm run dev      # 啟動開發伺服器
+npm run build    # TypeScript 檢查 + 生產打包
+npm run preview  # 預覽打包結果
+npm run lint     # ESLint 檢查
+```
 
-### 3.HTML 預覽器 (/tools/html-previewer)
-|功能	|描述|
-| :--- | :--- |
-|即時預覽|	使用 `<iframe>` 將 HTML/CSS 代碼安全地隔離並渲染。|
-|格式化 HTML|	透過 js-beautify 庫，一鍵美化輸入的 HTML 代碼。|
-|分屏佈局|	輸入區和預覽區並排顯示，方便對照。|
+---
 
-### 4. Markdown 實時預覽器 (/tools/markdown-previewer)
-|功能	|描述|
-| :--- | :--- |
-|即時轉換|即時將 Markdown 文本轉換為 HTML 並顯示渲染結果，支援 標題、粗體、斜體 和列表等基本語法。|
-|專業解析|採用業界標準的解析邏輯（marked 函式庫），確保複雜的 巢狀結構 能夠正確渲染。|
-|複製 HTML|	一鍵複製渲染後的純 HTML 內容。|
+## 🛠️ 已實作工具
 
-## 💻 本地測試部署版本 (使用 BAT 啟動)
+| 工具 | 路由 | 主要功能 |
+| :--- | :--- | :--- |
+| Base64 編解碼 | `/tools/base64` | UTF-8 / ASCII 轉換、雙向編解碼、錯誤提示 |
+| JSON Formatter | `/tools/json-formatter` | Format / Minify、語法校驗、複製結果、樹狀瀏覽、節點收合、搜尋 key/value |
+| HTML Previewer | `/tools/html-previewer` | 即時預覽、HTML 美化、左右分欄對照 |
+| Markdown Previewer | `/tools/MarkdownPreviewer` | 即時渲染、`marked` 解析、複製輸出 HTML |
+| QRCode Previewer | `/tools/QRious` | 即時產生 QR Code、上傳圖片解碼 |
 
-為了在不使用 IIS 的情況下測試打包後的靜態網站，我們使用輕量級的 `serve` 伺服器，並透過 `.bat` 批次檔簡化啟動流程。
+---
 
-### A. 前置作業：安裝 `serve`
+## 💻 打包後本地預覽（BAT）
 
-請全局安裝 `serve`：
+`MyTools/start_server.bat` 會使用 `serve` 啟動 `dist` 內容。
+
+### 1) 安裝 `serve`
 
 ```bash
 npm install -g serve
 ```
 
-### B. 批次檔 (start_server.bat) 說明
-在專案根目錄下有一個 start_server.bat 檔案，用於一鍵啟動測試網站。
+### 2) 打包
 
-功能： 執行 npm run build 後，雙擊此檔案，即可在 http://localhost:3000 啟動服務。
-
-注意： 關閉此視窗會停止網站服務。
-
-start_server.bat 內容摘要：
-
-```bat
-@echo off
-chcp 950
-REM ... 檢查 serve 
-CD dist
-serve -s -l 3000
+```bash
+cd MyTools
+npm run build
 ```
 
-### C. 更新流程
-每當您修改了 src/ 中的程式碼，要更新測試網站時，請遵循以下步驟：
-關閉正在運行的 start_server.bat 視窗。
-在終端機中執行：npm run build。
-重新雙擊 start_server.bat 啟動服務。
+### 3) 啟動靜態站
+
+雙擊 `MyTools/start_server.bat`，預設在 <http://localhost:3000/>。
+
+---
+
+## 🌐 GitHub Pages 部署
+
+本專案已支援透過 GitHub Actions 自動部署到 GitHub Pages。
+
+### 1) 確認已提交以下檔案
+
+- `MyTools/vite.config.ts`（已設定 Pages 用 `base`）
+- `MyTools/src/App.tsx`（已使用 `HashRouter`）
+- `.github/workflows/pages.yml`（自動建置與部署）
+
+### 2) 推送到 `main`
+
+```bash
+git add .
+git commit -m "chore: setup github pages deployment"
+git push origin main
+```
+
+### 3) 啟用 GitHub Pages
+
+到 GitHub 專案頁面：
+
+- `Settings` → `Pages`
+- `Build and deployment` 的 `Source` 選擇 `GitHub Actions`
+
+### 4) 查看部署結果
+
+- 到 `Actions` 分頁確認 `Deploy MyTools to GitHub Pages` 成功
+- 網址格式：`https://<github-username>.github.io/<repository-name>/`
+
+---
+
+## ❗常見問題
+
+### `npm ERR! enoent Could not read package.json`
+
+代表你目前終端機所在目錄沒有 `package.json`。
+
+請切到 `MyTools/` 子資料夾再執行：
+
+```bash
+cd MyTools
+npm run build
+```
