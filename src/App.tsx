@@ -22,7 +22,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <div className="app-container">
 
         <div className={`main-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
