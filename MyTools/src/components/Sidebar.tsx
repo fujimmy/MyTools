@@ -31,7 +31,8 @@ const navItems: NavItem[] = [
       { id: 21, icon: '🔑', text: 'Base64', path: '/tools/base64' },
       { id: 22, icon: '📄', text: 'JSON Formatter', path: '/tools/json-formatter' },
       { id: 23, icon: '🖥️', text: 'HTML Previewer', path: '/tools/html-previewer' },
-      { id: 24, icon: '📜', text: 'Markdown Previewer', path: '/tools/MarkdownPreviewer' }
+      { id: 24, icon: '📜', text: 'Markdown Previewer', path: '/tools/MarkdownPreviewer' },
+      { id: 25, icon: '📜', text: 'QRCode Previewer', path: '/tools/QRious' }
     ]
   },
   { id: 3, icon: '💾', text: '存檔歷史', path: '/history' },
