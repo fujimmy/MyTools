@@ -20,16 +20,15 @@
 
 ## 📁 目錄結構（重要）
 
-本倉庫是「雙層」目錄，真正的前端專案在 `MyTools/` 子資料夾：
+本倉庫目前為單層目錄，前端專案檔案就在根目錄：
 
 ```text
 MyTools/
-├─ README.md                # 本文件
-└─ MyTools/
-	├─ package.json          # npm 指令要在這層執行
-	├─ src/
-	├─ dist/
-	└─ start_server.bat
+├─ README.md
+├─ package.json
+├─ src/
+├─ public/
+└─ start_server.bat
 ```
 
 ---
@@ -41,19 +40,11 @@ MyTools/
 - Node.js 18+
 - npm 9+
 
-### 方式 A（推薦）
+### 在專案根目錄執行
 
 ```bash
-cd MyTools
 npm install
 npm run dev
-```
-
-### 方式 B（在倉庫根目錄直接執行）
-
-```bash
-npm --prefix MyTools install
-npm --prefix MyTools run dev
 ```
 
 開發站預設啟動於 <http://localhost:5173/>。
@@ -62,7 +53,7 @@ npm --prefix MyTools run dev
 
 ## 🧪 常用指令
 
-請在 `MyTools/` 子資料夾執行：
+請在專案根目錄執行：
 
 ```bash
 npm run dev      # 啟動開發伺服器
@@ -115,7 +106,7 @@ npm run lint     # ESLint 檢查
 
 ## 💻 打包後本地預覽（BAT）
 
-`MyTools/start_server.bat` 會使用 `serve` 啟動 `dist` 內容。
+`start_server.bat` 會使用 `serve` 啟動 `dist` 內容。
 
 ### 1) 安裝 `serve`
 
@@ -126,13 +117,12 @@ npm install -g serve
 ### 2) 打包
 
 ```bash
-cd MyTools
 npm run build
 ```
 
 ### 3) 啟動靜態站
 
-雙擊 `MyTools/start_server.bat`，預設在 <http://localhost:3000/>。
+雙擊 `start_server.bat`，預設在 <http://localhost:3000/>。
 
 ---
 
@@ -142,8 +132,8 @@ npm run build
 
 ### 1) 確認已提交以下檔案
 
-- `MyTools/vite.config.ts`（已設定 Pages 用 `base`）
-- `MyTools/src/App.tsx`（已使用 `BrowserRouter`）
+- `vite.config.ts`（已設定 Pages 用 `base`）
+- `src/App.tsx`（已使用 `BrowserRouter`）
 - `.github/workflows/pages.yml`（自動建置與部署）
 
 ### 2) 推送到 `main`
@@ -175,10 +165,9 @@ git push origin main
 
 代表你目前終端機所在目錄沒有 `package.json`。
 
-請切到 `MyTools/` 子資料夾再執行：
+請確認目前在專案根目錄後再執行：
 
 ```bash
-cd MyTools
 npm run build
 ```
 
