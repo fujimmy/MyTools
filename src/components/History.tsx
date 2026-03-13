@@ -13,6 +13,7 @@ const TOOL_NAME_MAP: Record<ToolType, string> = {
   'html-previewer': 'HTML Previewer',
   'markdown-previewer': 'Markdown Previewer',
   'qrious': 'QRCode Previewer',
+  'jwt-decoder': 'JWT Decoder',
 };
 
 const formatTime = (isoTime: string): string => {

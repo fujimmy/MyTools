@@ -171,6 +171,7 @@ npm version patch --no-git-tag-version
 | 工具 | 路由 | 主要功能 |
 | :--- | :--- | :--- |
 | Base64 編解碼 | `/tools/base64` | UTF-8 / ASCII 轉換、雙向編解碼、錯誤提示、儲存此次轉換 |
+| JWT Decoder | `/tools/jwt-decoder` | 解析 JWT Header/Payload、exp/iat/nbf 時間欄位轉換、儲存此次轉換 |
 | JSON Formatter | `/tools/json-formatter` | Format / Minify、語法校驗、複製結果、樹狀瀏覽、節點收合、搜尋 key/value、儲存此次轉換 |
 | HTML Previewer | `/tools/html-previewer` | 即時預覽、HTML 美化、左右分欄對照、儲存此次轉換 |
 | Markdown Previewer | `/tools/MarkdownPreviewer` | 即時渲染、`marked` 解析、儲存此次轉換 |

@@ -3,7 +3,8 @@ export type ToolType =
   | 'json-formatter'
   | 'html-previewer'
   | 'markdown-previewer'
-  | 'qrious';
+  | 'qrious'
+  | 'jwt-decoder';
 
 export interface ConversionHistoryItem {
   id: string;

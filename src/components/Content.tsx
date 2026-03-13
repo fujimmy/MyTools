@@ -29,6 +29,14 @@ const toolCards: ToolCard[] = [
     description: '生成與解析二維碼',
     category: '編碼轉換'
   },
+  {
+    id: 'jwt-decoder',
+    name: 'JWT Decoder',
+    icon: '🔐',
+    path: '/tools/jwt-decoder',
+    description: '解析 JWT Header/Payload 與時間欄位',
+    category: '編碼轉換'
+  },
   // 數據格式化
   {
     id: 'json',

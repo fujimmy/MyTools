@@ -8,6 +8,7 @@ import JsonFormatter from './components/tools/JsonFormatter';
 import HtmlPreviewer from './components/tools/HtmlPreviewer';
 import MarkdownPreviewer from './components/tools/MarkdownPreviewer';
 import QRCodePreviewer from './components/tools/QRious';
+import JwtDecoder from './components/tools/JwtDecoder';
 import HistoryPage from './components/History';
 
 import './App.css'; // 引入樣式文件
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               <Route path="/tools/html-previewer" element={<HtmlPreviewer />} />
               <Route path="/tools/MarkdownPreviewer" element={<MarkdownPreviewer />} />
               <Route path="/tools/QRious" element={<QRCodePreviewer />} />
+              <Route path="/tools/jwt-decoder" element={<JwtDecoder />} />
               <Route path="/history" element={<HistoryPage />} />
             </Routes>
           </main>

@@ -33,7 +33,8 @@ const navItems: NavItem[] = [
       { id: 22, icon: '📄', text: 'JSON Formatter', path: '/tools/json-formatter' },
       { id: 23, icon: '🖥️', text: 'HTML Previewer', path: '/tools/html-previewer' },
       { id: 24, icon: '📜', text: 'Markdown Previewer', path: '/tools/MarkdownPreviewer' },
-      { id: 25, icon: '📜', text: 'QRCode Previewer', path: '/tools/QRious' }
+      { id: 25, icon: '📜', text: 'QRCode Previewer', path: '/tools/QRious' },
+      { id: 26, icon: '🔐', text: 'JWT Decoder', path: '/tools/jwt-decoder' }
     ]
   },
   { id: 3, icon: '💾', text: '存檔歷史', path: '/history' },
