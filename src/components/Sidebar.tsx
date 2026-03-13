@@ -151,7 +151,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
 
       {/* 3. 底部區域 */}
       <div className="sidebar-footer">
-        {!isCollapsed && <span>版本 1.0.0</span>}
+        {!isCollapsed && <span>版本 {__APP_VERSION__}</span>}
         <a
           href="https://github.com/fujimmy/MyTools/issues"
           target="_blank"

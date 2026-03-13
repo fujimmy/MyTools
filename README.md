@@ -133,6 +133,37 @@ git rebase -i HEAD~N
 
 把要修改的 commit 標記為 `reword`，再依規範更新訊息。
 
+### 版本升級（建議指令）
+
+由於本專案使用 commitlint，建議使用下列指令升版，避免預設訊息不符合 Conventional Commits：
+
+```bash
+# 先確認工作目錄乾淨
+git status
+```
+
+若有未提交變更，請先 commit 或 stash，再執行升版：
+
+```bash
+npm version patch -m "chore(release): %s"
+```
+
+常用變體：
+
+```bash
+npm version minor -m "chore(release): %s"
+npm version major -m "chore(release): %s"
+```
+
+補充：
+
+- `%s` 會被 npm 自動替換為版本號（例如 `1.0.1`）。
+- 若只想更新版本號、不自動建立 commit/tag：
+
+```bash
+npm version patch --no-git-tag-version
+```
+
 ---
 
 ## 🛠️ 已實作工具
