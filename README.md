@@ -64,6 +64,77 @@ npm run lint     # ESLint 檢查
 
 ---
 
+## ✅ Commit 訊息規範（Conventional Commits v1.0.0）
+
+本專案採用 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)。
+
+### 格式
+
+```text
+<type>[optional scope]: <description>
+```
+
+### 支援的 type（標準）
+
+- `feat`: 新功能
+- `fix`: 修正 bug
+- `docs`: 文件調整
+- `style`: 不影響邏輯的格式調整（例如空白、分號）
+- `refactor`: 重構（非 bug 修正、非新功能）
+- `perf`: 效能優化
+- `test`: 測試相關
+- `build`: 建置系統或外部依賴
+- `ci`: CI 設定調整
+- `chore`: 其他雜項維護
+- `revert`: 回滾提交
+
+### BREAKING CHANGE 寫法
+
+- 可在 type 後加 `!`：`feat!: remove legacy API`
+- 或在 commit body/footer 加上 `BREAKING CHANGE: ...`
+
+### 範例
+
+合法：
+
+```text
+feat(html-previewer): add monaco editor input
+fix(history): prevent duplicate entries
+docs(readme): add commit convention section
+chore(ci): add commitlint workflow
+```
+
+不合法：
+
+```text
+update stuff
+fix bug
+feature: new page
+```
+
+### 檢查機制（本機 + CI）
+
+- 本機：`git commit` 時會觸發 `husky` 的 `commit-msg` hook，使用 `commitlint` 檢查訊息格式。
+- CI：GitHub Actions 的 `commitlint` workflow 會在 `push` / `pull_request` 再次檢查，避免 `--no-verify` 略過本機驗證。
+
+### 失敗時如何修正
+
+若最後一次 commit 訊息不符規範，可執行：
+
+```bash
+git commit --amend -m "feat(scope): your message"
+```
+
+若是更早之前的 commit，需要使用互動式 rebase：
+
+```bash
+git rebase -i HEAD~N
+```
+
+把要修改的 commit 標記為 `reword`，再依規範更新訊息。
+
+---
+
 ## 🛠️ 已實作工具
 
 | 工具 | 路由 | 主要功能 |

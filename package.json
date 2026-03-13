@@ -7,12 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky",
+    "lint:commit": "commitlint --from HEAD~1 --to HEAD --verbose"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
     "js-beautify": "^1.15.4",
     "jsqr": "^1.4.0",
     "marked": "^16.4.1",
+    "monaco-editor": "^0.55.1",
     "qrious": "^4.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -20,6 +24,8 @@
     "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.4",
+    "@commitlint/config-conventional": "^20.4.4",
     "@eslint/js": "^9.36.0",
     "@types/js-beautify": "^1.14.3",
     "@types/node": "^24.6.0",
@@ -30,6 +36,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "npm:rolldown-vite@7.1.14"

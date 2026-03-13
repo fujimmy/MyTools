@@ -1,7 +1,51 @@
 // src/components/tools/HtmlPreviewer.tsx
 import React, { useState, useEffect, useRef } from 'react';
+import Editor, { type BeforeMount } from '@monaco-editor/react';
 import { html as html_beautify } from 'js-beautify';
 import { saveHistoryItem } from '../../utils/historyStore';
+
+const beautifyOptions = {
+  indent_size: 2,
+  space_in_empty_paren: true,
+  preserve_newlines: true,
+  max_preserve_newlines: 1,
+  end_with_newline: true
+};
+
+const formatHtmlContent = (content: string): string => {
+  if (content.trim() === '') {
+    return content;
+  }
+
+  return html_beautify(content, beautifyOptions);
+};
+
+const htmlEditorThemeName = 'mytools-html-theme';
+
+const setupHtmlEditorTheme: BeforeMount = (monaco) => {
+  monaco.editor.defineTheme(htmlEditorThemeName, {
+    base: 'vs',
+    inherit: true,
+    rules: [
+      { token: 'tag', foreground: '005CC5', fontStyle: 'bold' },
+      { token: 'tag.name', foreground: '005CC5', fontStyle: 'bold' },
+      { token: 'tag.html', foreground: '005CC5', fontStyle: 'bold' },
+      { token: 'attribute.name', foreground: 'B26A00' },
+      { token: 'attribute.name.html', foreground: 'B26A00' },
+      { token: 'attribute.value', foreground: '0A7F6F' },
+      { token: 'attribute.value.html', foreground: '0A7F6F' },
+      { token: 'string', foreground: '0A7F6F' },
+      { token: 'delimiter.html', foreground: '6B7280' }
+    ],
+    colors: {
+      'editorLineNumber.foreground': '#9ca3af',
+      'editorLineNumber.activeForeground': '#4b5563',
+      'editorIndentGuide.background1': '#e5e7eb',
+      'editorIndentGuide.activeBackground1': '#9ca3af',
+      'editorGutter.background': '#ffffff'
+    }
+  });
+};
 
 const HtmlPreviewer: React.FC = () => {
   // 狀態：管理 HTML/CSS 輸入文本
@@ -10,17 +54,9 @@ const HtmlPreviewer: React.FC = () => {
   );
   const [saveStatus, setSaveStatus] = useState<'none' | 'saved'>('none');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [enableBeautify, setEnableBeautify] = useState<boolean>(false);
   // Ref：用於指向 iframe 元素
   const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  // 設置 js-beautify 的選項
-  const beautifyOptions = {
-    indent_size: 2,           // 縮進空格數
-    space_in_empty_paren: true,
-    preserve_newlines: true,  // 保留換行
-    max_preserve_newlines: 1, // 最多保留一行換行
-    end_with_newline: true    // 結尾添加換行
-  };
 
   const buildPreviewHtml = (content: string): string => {
     return `
@@ -37,26 +73,6 @@ const HtmlPreviewer: React.FC = () => {
         </body>
       </html>
     `;
-  };
-
-  // === [ 新增：HTML 格式化函數 ] ===
-  const handleFormatHtml = () => {
-    try {
-      if (htmlInput.trim() === '') return;
-      setErrorMessage('');
-      setSaveStatus('none');
-      
-      // 使用 js-beautify 庫格式化 HTML
-      const formattedHtml = html_beautify(htmlInput, beautifyOptions);
-      
-      // 更新輸入框的內容
-      setHtmlInput(formattedHtml);
-
-    } catch (error) {
-      // 雖然 js-beautify 不常拋出錯誤，但最好還是處理一下
-      console.error("HTML 格式化失敗:", error);
-      setErrorMessage('HTML 格式化失敗，請檢查代碼是否有嚴重錯誤。');
-    }
   };
 
   const handleSaveCurrent = () => {
@@ -99,10 +115,10 @@ const HtmlPreviewer: React.FC = () => {
         iframeDoc.close();
       }
     }
-  }, [htmlInput]); // 依賴於 htmlInput，當它改變時重新渲染 iframe
+  }, [htmlInput]); // 依賴於輸入內容，當它改變時重新渲染 iframe
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px', width: '100%', boxSizing: 'border-box' }}>
       <h2>HTML 預覽器</h2>
       <p style={{ marginBottom: '15px' }}>在左側輸入 HTML/CSS 代碼，右側即時查看渲染結果。</p>      
 
@@ -126,53 +142,85 @@ const HtmlPreviewer: React.FC = () => {
         >
           儲存此次轉換
         </button>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={enableBeautify}
+            onChange={(e) => {
+              const shouldBeautify = e.target.checked;
+              setEnableBeautify(shouldBeautify);
+              setSaveStatus('none');
+              setErrorMessage('');
+
+              if (shouldBeautify && htmlInput.trim() !== '') {
+                try {
+                  setHtmlInput(formatHtmlContent(htmlInput));
+                } catch (error) {
+                  console.error('HTML 格式化失敗:', error);
+                  setErrorMessage('HTML 格式化失敗，請檢查代碼是否有嚴重錯誤。');
+                  setEnableBeautify(false);
+                }
+              }
+            }}
+          />
+          格式化 HTML
+        </label>
         {saveStatus === 'saved' && <span style={{ color: '#2e7d32' }}>✅ 已儲存</span>}
       </div>
 
-      <div style={{ display: 'flex', gap: '20px', height: '600px' }}>
+      <div style={{ display: 'flex', gap: '20px', height: '600px', width: '100%', minWidth: 0, overflow: 'hidden' }}>
         
         {/* 1. 輸入區域 (佔 50% 寬度) */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="htmlInput" style={{ marginBottom: '5px' }}>HTML/CSS 代碼輸入區:</label>
-          {/* 新增格式化按鈕 */}
-          <button 
-            onClick={handleFormatHtml}
-            style={{ 
-              padding: '8px 15px', 
-              marginBottom: '10px',
-              backgroundColor: '#008CBA', // 藍色按鈕
-              color: 'white', 
-              border: 'none', 
-              cursor: 'pointer', 
-              borderRadius: '5px' 
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+          <label style={{ marginBottom: '5px' }}>HTML/CSS 代碼輸入區:</label>
+          <div
+            style={{
+              flex: 1,
+              width: '100%',
+              minWidth: 0,
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              overflow: 'hidden'
             }}
           >
-            格式化 HTML
-          </button>
-          <textarea
-            id="htmlInput"
-            rows={20}
-            value={htmlInput}
-            onChange={(e) => {
-              setHtmlInput(e.target.value);
-              setErrorMessage('');
-              setSaveStatus('none');
-            }}
-            placeholder="請輸入 HTML/CSS 代碼..."
-            style={{ 
-              flex: 1, 
-              width: '100%', 
-              padding: '10px', 
-              boxSizing: 'border-box', 
-              fontFamily: 'Consolas, monospace',
-              fontSize: '14px',
-              resize: 'none' // 禁止用戶調整大小
-            }}
-          />
+            <Editor
+              height="100%"
+              language="html"
+              value={htmlInput}
+              beforeMount={setupHtmlEditorTheme}
+              theme={htmlEditorThemeName}
+              onChange={(value) => {
+                setHtmlInput(value ?? '');
+                setErrorMessage('');
+                setSaveStatus('none');
+              }}
+              options={{
+                automaticLayout: true,
+                minimap: { enabled: false },
+                lineNumbers: 'on',
+                lineNumbersMinChars: 3,
+                glyphMargin: false,
+                folding: false,
+                wordWrap: 'on',
+                scrollBeyondLastLine: false,
+                tabSize: 2,
+                insertSpaces: true,
+                fontFamily: 'Consolas, monospace',
+                fontSize: 14,
+                guides: {
+                  indentation: true
+                },
+                padding: {
+                  top: 10,
+                  bottom: 10
+                }
+              }}
+            />
+          </div>
         </div>
 
         {/* 2. 預覽區域 (佔 50% 寬度) */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
           <label style={{ marginBottom: '5px' }}>預覽結果:</label>
           <iframe
             ref={iframeRef}
