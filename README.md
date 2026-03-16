@@ -1,19 +1,21 @@
 # MyTools - 開發者實用工具箱
 
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vue](https://img.shields.io/badge/Vue-42B883?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-這是一個以 React + TypeScript + Vite 建置的工具型 SPA，整合常用的開發與資料處理小工具。
+這是一個以 Vue 3 + TypeScript + Vite 建置的工具型 SPA，整合常用的開發與資料處理小工具。
 
 ---
 
 ## ✨ 專案特色
 
 - 類似 Gemini 的簡潔介面與可收合側邊欄。
-- `react-router-dom` 路由切換，工具頁面可獨立存取。
+- `vue-router` 路由切換，工具頁面可獨立存取。
+- `Pinia` 管理 UI 狀態與轉換歷史，資料持久化於 `localStorage`。
 - 模組化元件設計，方便持續新增工具。
 - 支援本地開發、正式打包與靜態站預覽。
+- HTML 預覽器內建 CodeMirror 編輯器，提供行號與 HTML syntax highlighting。
 - 各工具可手動儲存「此次轉換 raw data」，並集中在存檔歷史檢視與刪除。
 
 ---
@@ -98,7 +100,7 @@ npm run lint     # ESLint 檢查
 合法：
 
 ```text
-feat(html-previewer): add monaco editor input
+feat(html-previewer): add codemirror editor input
 fix(history): prevent duplicate entries
 docs(readme): add commit convention section
 chore(ci): add commitlint workflow
@@ -172,10 +174,10 @@ npm version patch --no-git-tag-version
 | :--- | :--- | :--- |
 | Base64 編解碼 | `/tools/base64` | UTF-8 / ASCII 轉換、雙向編解碼、錯誤提示、儲存此次轉換 |
 | JWT Decoder | `/tools/jwt-decoder` | 解析 JWT Header/Payload、exp/iat/nbf 時間欄位轉換、儲存此次轉換 |
-| JSON Formatter | `/tools/json-formatter` | Format / Minify、語法校驗、複製結果、樹狀瀏覽、節點收合、搜尋 key/value、儲存此次轉換 |
-| HTML Previewer | `/tools/html-previewer` | 即時預覽、HTML 美化、左右分欄對照、儲存此次轉換 |
-| Markdown Previewer | `/tools/MarkdownPreviewer` | 即時渲染、`marked` 解析、儲存此次轉換 |
-| QRCode Previewer | `/tools/QRious` | 即時產生 QR Code、上傳圖片解碼、儲存此次轉換（編碼/解碼） |
+| JSON Formatter | `/tools/json-formatter` | Format / Minify、語法校驗、複製結果、可搜尋的格式化預覽、儲存此次轉換 |
+| HTML Previewer | `/tools/html-previewer` | CodeMirror HTML 編輯器（行號、syntax highlighting）、即時預覽、格式化 HTML、儲存此次轉換 |
+| Markdown Previewer | `/tools/markdown-previewer` | 即時渲染、`marked` 解析、儲存此次轉換 |
+| QRCode Previewer | `/tools/qrious` | 即時產生 QR Code、上傳圖片解碼、儲存此次轉換（編碼/解碼） |
 | 存檔歷史 | `/history` | 顯示所有已儲存 raw data（input/output）、可單筆刪除 |
 
 ---
@@ -236,8 +238,9 @@ npm run build
 ### 1) 確認已提交以下檔案
 
 - `vite.config.ts`（已設定 Pages 用 `base`）
-- `src/App.tsx`（已使用 `BrowserRouter`）
+- `src/router/index.ts`（已設定 `vue-router` 與路由相容轉址）
 - `.github/workflows/pages.yml`（自動建置與部署）
+- `.github/workflows/commitlint.yml`（commit 訊息格式檢查）
 
 ### 2) 推送到 `main`
 
