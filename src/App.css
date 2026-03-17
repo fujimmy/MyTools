@@ -23,6 +23,8 @@ body,
   min-height: 100vh;
   /* 確保佔滿整個視窗高度 */
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   /* 確保佔滿整個視窗寬度 */
   margin: 0;
   font-family: Arial, sans-serif;
@@ -43,6 +45,9 @@ body,
 /* --- 主內容區佈局 (Main Wrapper) --- */
 .main-wrapper {
   display: flex;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   height: calc(100% - var(--header-height));
 }
 
@@ -166,9 +171,12 @@ body,
 /* --- 主要內容區 (Content Area) --- */
 .content-area {
   flex-grow: 1;
-  padding: 20px;
+  min-width: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: #fff;
   overflow-y: auto;
+  overflow-x: hidden;
   /* 由於使用 flex，內容區會自動填滿剩餘空間，不需要 margin-left */
   color: var(--text-color, #3c4043);
 }

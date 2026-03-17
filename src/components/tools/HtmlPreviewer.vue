@@ -108,6 +108,7 @@ onMounted(() => {
               updatingFromOutside = false
             }
           }),
+          EditorView.lineWrapping,
           EditorView.theme({
             '&': { height: '100%', fontSize: '14px' },
             '.cm-scroller': { overflow: 'auto', fontFamily: 'Consolas, monospace' },
@@ -169,7 +170,7 @@ onUnmounted(() => {
         <iframe
           ref="iframeRef"
           title="HTML Preview"
-          style="flex: 1; width: 100%; border: 1px solid #ccc; background-color: white"
+          style="flex: 1; width: 100%; border: 1px solid #ccc; background-color: white; box-sizing: border-box"
           sandbox="allow-forms allow-modals allow-popups allow-scripts allow-same-origin"
         />
       </div>
