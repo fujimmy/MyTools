@@ -54,7 +54,8 @@ const handleSaveCurrent = () => {
     <div style="display: flex; gap: 10px; align-items: center">
       <button
         @click="handleSaveCurrent"
-        style="padding: 8px 15px; background-color: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #2e7d32"
       >
         儲存此次轉換
       </button>

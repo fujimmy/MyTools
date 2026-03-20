@@ -2,7 +2,6 @@
 interface ToolCard {
   id: string
   name: string
-  icon: string
   path: string
   description: string
   category: string
@@ -12,7 +11,6 @@ const toolCards: ToolCard[] = [
   {
     id: 'base64',
     name: 'Base64',
-    icon: '🔑',
     path: '/tools/base64',
     description: '文本與 Base64 互相轉換',
     category: '編碼轉換',
@@ -20,7 +18,6 @@ const toolCards: ToolCard[] = [
   {
     id: 'qrcode',
     name: 'QRCode',
-    icon: '📱',
     path: '/tools/qrious',
     description: '生成與解析二維碼',
     category: '編碼轉換',
@@ -28,7 +25,6 @@ const toolCards: ToolCard[] = [
   {
     id: 'jwt-decoder',
     name: 'JWT Decoder',
-    icon: '🔐',
     path: '/tools/jwt-decoder',
     description: '解析 JWT Header/Payload 與時間欄位',
     category: '編碼轉換',
@@ -36,7 +32,6 @@ const toolCards: ToolCard[] = [
   {
     id: 'json',
     name: 'JSON Formatter',
-    icon: '📄',
     path: '/tools/json-formatter',
     description: 'JSON 格式化與壓縮',
     category: '數據格式化',
@@ -44,7 +39,6 @@ const toolCards: ToolCard[] = [
   {
     id: 'html',
     name: 'HTML Previewer',
-    icon: '🖥️',
     path: '/tools/html-previewer',
     description: '即時預覽 HTML 代碼',
     category: '內容預覽',
@@ -52,14 +46,20 @@ const toolCards: ToolCard[] = [
   {
     id: 'markdown',
     name: 'Markdown Previewer',
-    icon: '📜',
     path: '/tools/markdown-previewer',
     description: 'Markdown 即時預覽',
     category: '內容預覽',
   },
+  {
+    id: 'xslt-diff',
+    name: 'XSLT 比較器',
+    path: '/tools/xslt-diff',
+    description: '上傳或貼上兩份 XSLT，逐行比較差異',
+    category: 'XML / XSLT',
+  },
 ]
 
-const categories = ['編碼轉換', '數據格式化', '內容預覽']
+const categories = ['編碼轉換', '數據格式化', '內容預覽', 'XML / XSLT']
 </script>
 
 <template>
@@ -75,7 +75,6 @@ const categories = ['編碼轉換', '數據格式化', '內容預覽']
             class="tool-card"
             :data-testid="`tool-card-${tool.id}`"
           >
-            <div class="tool-icon">{{ tool.icon }}</div>
             <div class="tool-name">{{ tool.name }}</div>
             <div class="tool-description">{{ tool.description }}</div>
           </RouterLink>

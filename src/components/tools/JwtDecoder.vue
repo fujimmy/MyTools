@@ -229,14 +229,16 @@ const handleSaveCurrent = () => {
     <div style="display: flex; gap: 10px; margin-bottom: 12px; align-items: center">
       <button
         @click="handleDecode"
-        style="padding: 8px 15px; background-color: #1a73e8; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #1a73e8"
       >
         解碼 JWT
       </button>
 
       <button
         @click="handleSaveCurrent"
-        style="padding: 8px 15px; background-color: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #2e7d32"
       >
         儲存此次轉換
       </button>
@@ -265,7 +267,8 @@ const handleSaveCurrent = () => {
               <span v-if="copyStatus === 'header'" style="color: #2e7d32; font-size: 12px">✅ 已複製</span>
               <button
                 @click="handleCopy(headerText, 'header')"
-                style="padding: 4px 10px; border-radius: 4px; border: 1px solid #cfd8dc; background-color: #fff; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; color: #37474f"
+                class="tool-button tool-button--compact"
+                style="--tool-button-bg: #ffffff; --tool-button-text: #37474f; --tool-button-border: #cfd8dc; --tool-button-shadow: none"
               >
                 <DocumentDuplicateIcon style="width: 13px; height: 13px" />
                 <span>複製</span>
@@ -282,7 +285,8 @@ const handleSaveCurrent = () => {
               <span v-if="copyStatus === 'payload'" style="color: #2e7d32; font-size: 12px">✅ 已複製</span>
               <button
                 @click="handleCopy(payloadText, 'payload')"
-                style="padding: 4px 10px; border-radius: 4px; border: 1px solid #cfd8dc; background-color: #fff; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; color: #37474f"
+                class="tool-button tool-button--compact"
+                style="--tool-button-bg: #ffffff; --tool-button-text: #37474f; --tool-button-border: #cfd8dc; --tool-button-shadow: none"
               >
                 <DocumentDuplicateIcon style="width: 13px; height: 13px" />
                 <span>複製</span>
@@ -313,7 +317,8 @@ const handleSaveCurrent = () => {
               <span v-if="copyStatus === 'signature'" style="color: #2e7d32; font-size: 12px">✅ 已複製</span>
               <button
                 @click="handleCopy(signatureText, 'signature', '此 JWT 沒有簽章段可複製。')"
-                style="padding: 4px 10px; border-radius: 4px; border: 1px solid #cfd8dc; background-color: #fff; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; color: #37474f"
+                class="tool-button tool-button--compact"
+                style="--tool-button-bg: #ffffff; --tool-button-text: #37474f; --tool-button-border: #cfd8dc; --tool-button-shadow: none"
               >
                 <DocumentDuplicateIcon style="width: 13px; height: 13px" />
                 <span>複製</span>

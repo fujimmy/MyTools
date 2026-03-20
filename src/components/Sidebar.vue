@@ -2,33 +2,34 @@
 import { computed, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { useUiStore } from '../stores/ui'
 
 interface NavItem {
   id: number
-  icon: string
   text: string
+  shortText: string
   path?: string
   children?: NavItem[]
 }
 
 const navItems: NavItem[] = [
-  { id: 1, icon: '🏠', text: '主控台', path: '/' },
+  { id: 1, text: '主控台', shortText: '主', path: '/' },
   {
     id: 2,
-    icon: '🤖',
     text: '我的工具',
+    shortText: '工',
     children: [
-      { id: 21, icon: '🔑', text: 'Base64', path: '/tools/base64' },
-      { id: 22, icon: '📄', text: 'JSON Formatter', path: '/tools/json-formatter' },
-      { id: 23, icon: '🖥️', text: 'HTML Previewer', path: '/tools/html-previewer' },
-      { id: 24, icon: '📜', text: 'Markdown Previewer', path: '/tools/markdown-previewer' },
-      { id: 25, icon: '📱', text: 'QRCode Previewer', path: '/tools/qrious' },
-      { id: 26, icon: '🔐', text: 'JWT Decoder', path: '/tools/jwt-decoder' },
+      { id: 21, text: 'Base64', shortText: 'B', path: '/tools/base64' },
+      { id: 22, text: 'JSON Formatter', shortText: 'J', path: '/tools/json-formatter' },
+      { id: 23, text: 'HTML Previewer', shortText: 'H', path: '/tools/html-previewer' },
+      { id: 24, text: 'Markdown Previewer', shortText: 'M', path: '/tools/markdown-previewer' },
+      { id: 25, text: 'QRCode Previewer', shortText: 'Q', path: '/tools/qrious' },
+      { id: 26, text: 'JWT Decoder', shortText: 'J', path: '/tools/jwt-decoder' },
+      { id: 27, text: 'XSLT Compare', shortText: 'X', path: '/tools/xslt-diff' },
     ],
   },
-  { id: 3, icon: '💾', text: '存檔歷史', path: '/history' },
+  { id: 3, text: 'History', shortText: 'H', path: '/history' },
 ]
 
 const route = useRoute()
@@ -81,8 +82,8 @@ const navContainerClass = computed(() => ['sidebar', { collapsed: isSidebarColla
           :class="{ active: itemHasActiveChild(item) }"
           :exact-active-class="item.path === '/' ? 'active' : ''"
         >
-          <span class="icon">{{ item.icon }}</span>
-          <span class="text">{{ item.text }}</span>
+          <span v-if="isSidebarCollapsed" class="text-collapsed">{{ item.shortText }}</span>
+          <span v-else class="text">{{ item.text }}</span>
         </RouterLink>
 
         <div
@@ -91,8 +92,8 @@ const navContainerClass = computed(() => ['sidebar', { collapsed: isSidebarColla
           :class="{ active: itemHasActiveChild(item) }"
           @click="toggleExpanded(item.id)"
         >
-          <span class="icon">{{ item.icon }}</span>
-          <span class="text">{{ item.text }}</span>
+          <span v-if="isSidebarCollapsed" class="text-collapsed">{{ item.shortText }}</span>
+          <span v-else class="text">{{ item.text }}</span>
           <span v-if="item.children && !isSidebarCollapsed" class="submenu-toggle">
             <ChevronUpIcon v-if="isExpanded(item.id)" style="width: 16px; height: 16px" />
             <ChevronDownIcon v-else style="width: 16px; height: 16px" />
@@ -106,7 +107,6 @@ const navContainerClass = computed(() => ['sidebar', { collapsed: isSidebarColla
               class="nav-link-content sub-link"
               active-class="active"
             >
-              <span class="icon">{{ child.icon }}</span>
               <span class="text">{{ child.text }}</span>
             </RouterLink>
           </li>
@@ -115,7 +115,7 @@ const navContainerClass = computed(() => ['sidebar', { collapsed: isSidebarColla
     </ul>
 
     <div class="sidebar-footer">
-      <span v-if="!isSidebarCollapsed">版本 {{ appVersion }}</span>
+      <span v-if="!isSidebarCollapsed" class="sidebar-version">版本 {{ appVersion }}</span>
       <a
         href="https://github.com/fujimmy/MyTools/issues"
         target="_blank"
@@ -124,8 +124,7 @@ const navContainerClass = computed(() => ['sidebar', { collapsed: isSidebarColla
         title="回報問題"
         data-testid="issue-report-button"
       >
-        <ExclamationCircleIcon style="width: 20px; height: 20px" />
-        <span v-if="!isSidebarCollapsed">回報 Issue</span>
+        <span>{{ isSidebarCollapsed ? '回報' : '回報 Issue' }}</span>
       </a>
     </div>
   </nav>

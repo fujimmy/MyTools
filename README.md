@@ -178,6 +178,7 @@ npm version patch --no-git-tag-version
 | HTML Previewer | `/tools/html-previewer` | CodeMirror HTML 編輯器（行號、syntax highlighting）、即時預覽、格式化 HTML、儲存此次轉換 |
 | Markdown Previewer | `/tools/markdown-previewer` | 即時渲染、`marked` 解析、儲存此次轉換 |
 | QRCode Previewer | `/tools/qrious` | 即時產生 QR Code、上傳圖片解碼、儲存此次轉換（編碼/解碼） |
+| XSLT 比較器 | `/tools/xslt-diff` | 上傳或貼上兩份 XSLT / XML，逐行比較並以左右分割視圖高亮差異、儲存此次轉換 |
 | 存檔歷史 | `/history` | 顯示所有已儲存 raw data（input/output）、可單筆刪除 |
 
 ---

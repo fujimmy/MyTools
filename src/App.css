@@ -117,6 +117,67 @@ body,
   /* 懸停時才顯示圓形背景 */
 }
 
+/* --- 功能頁共用按鈕 --- */
+.content-area .tool-button {
+  --tool-button-bg: #1a73e8;
+  --tool-button-text: #ffffff;
+  --tool-button-border: transparent;
+  --tool-button-shadow: 0 1px 2px rgba(15, 23, 42, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid var(--tool-button-border);
+  background-color: var(--tool-button-bg);
+  color: var(--tool-button-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
+  box-shadow: var(--tool-button-shadow);
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.content-area .tool-button:hover:not(:disabled) {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
+  border-color: var(--tool-button-border);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.16);
+}
+
+.content-area .tool-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--tool-button-shadow);
+}
+
+.content-area .tool-button:focus {
+  outline: none;
+}
+
+.content-area .tool-button:focus-visible {
+  outline: 3px solid rgba(26, 115, 232, 0.24);
+  outline-offset: 2px;
+}
+
+.content-area .tool-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
+.content-area .tool-button--compact {
+  min-height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 /* --- 導航列表 --- */
 .nav-list {
   list-style: none;
@@ -147,12 +208,6 @@ body,
   background-color: var(--highlight-color);
 }
 
-.icon {
-  font-size: 20px;
-  min-width: 32px;
-  /* 固定圖標佔位寬度 */
-}
-
 /* 關鍵點：控制文字的平滑過渡 */
 .text {
   opacity: 1;
@@ -161,11 +216,22 @@ body,
   margin-left: 0px;
 }
 
+.text-collapsed {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .sidebar.collapsed .text {
   opacity: 0;
   /* 收合時文字透明度為 0 */
   visibility: hidden;
   /* 確保不佔空間 */
+}
+
+.sidebar.collapsed .nav-link-content {
+  justify-content: center;
+  padding: 0 6px;
 }
 
 /* --- 主要內容區 (Content Area) --- */
@@ -200,16 +266,10 @@ body,
 
 .sub-item .nav-link-content {
   /* 子項目縮進效果 */
-  padding-left: 50px;
+  padding-left: 24px;
   height: 36px;
   /* 子項目可以稍微窄一點 */
   font-size: 0.95em;
-}
-
-/* 子項目的圖標和文字也需要調整，確保在收合時是隱藏的 */
-.sub-item .icon {
-  font-size: 16px;
-  min-width: 24px;
 }
 
 /* 選中的導航項目高亮 */
@@ -244,7 +304,7 @@ body,
   text-align: center;
 }
 
-.sidebar.collapsed .sidebar-footer span {
+.sidebar.collapsed .sidebar-version {
   display: none;
 }
 
@@ -253,7 +313,6 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   padding: 8px 12px;
   background: #f0f0f0;
   border: 1px solid #d0d0d0;
@@ -274,12 +333,8 @@ body,
 
 .sidebar.collapsed .issue-button {
   justify-content: center;
-  padding: 8px;
-  width: 40px;
-}
-
-.sidebar.collapsed .issue-button span {
-  display: none;
+  padding: 8px 4px;
+  width: 100%;
 }
 
 /* --- 工具卡片容器 (Tools Container) --- */
@@ -316,6 +371,7 @@ body,
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   padding: 24px 16px;
   background: white;
   border: 2px solid #e0e0e0;
@@ -333,15 +389,9 @@ body,
   transform: translateY(-2px);
 }
 
-.tool-icon {
-  font-size: 48px;
-  margin-bottom: 12px;
-}
-
 .tool-name {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 8px;
   text-align: center;
 }
 

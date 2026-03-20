@@ -4,7 +4,8 @@ export type ToolType =
   | 'html-previewer'
   | 'markdown-previewer'
   | 'qrious'
-  | 'jwt-decoder';
+  | 'jwt-decoder'
+  | 'xslt-diff';
 
 export interface ConversionHistoryItem {
   id: string;

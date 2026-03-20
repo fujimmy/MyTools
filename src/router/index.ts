@@ -6,6 +6,7 @@ import HtmlPreviewer from '../components/tools/HtmlPreviewer.vue'
 import MarkdownPreviewer from '../components/tools/MarkdownPreviewer.vue'
 import QRCodePreviewer from '../components/tools/QRious.vue'
 import JwtDecoder from '../components/tools/JwtDecoder.vue'
+import XsltDiff from '../components/tools/XsltDiff.vue'
 import HistoryPage from '../components/History.vue'
 
 const router = createRouter({
@@ -18,6 +19,7 @@ const router = createRouter({
     { path: '/tools/markdown-previewer', component: MarkdownPreviewer },
     { path: '/tools/qrious', component: QRCodePreviewer },
     { path: '/tools/jwt-decoder', component: JwtDecoder },
+    { path: '/tools/xslt-diff', component: XsltDiff },
     { path: '/history', component: HistoryPage },
     { path: '/tools/MarkdownPreviewer', redirect: '/tools/markdown-previewer' },
     { path: '/tools/QRious', redirect: '/tools/qrious' },

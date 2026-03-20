@@ -418,7 +418,8 @@ const handleSaveCurrent = () => {
           </span>
           <button
             @click="handleCopy"
-            style="padding: 4px 8px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 11px"
+            class="tool-button tool-button--compact"
+            style="--tool-button-bg: #28a745"
           >
             複製結果
           </button>
@@ -456,28 +457,32 @@ const handleSaveCurrent = () => {
       <div style="display: flex; gap: 6px; width: 100%; box-sizing: border-box; overflow: hidden; flex-wrap: wrap; align-items: center; flex-shrink: 0">
         <button
           @click="handleFormat"
-          style="padding: 6px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 12px"
+          class="tool-button"
+          style="--tool-button-bg: #4CAF50"
         >
           格式化 (Format)
         </button>
 
         <button
           @click="handleMinify"
-          style="padding: 6px 10px; background-color: #008CBA; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 12px"
+          class="tool-button"
+          style="--tool-button-bg: #008CBA"
         >
           壓縮 (Minify)
         </button>
 
         <button
           @click="handleClear"
-          style="padding: 6px 10px; background-color: #f44336; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 12px"
+          class="tool-button"
+          style="--tool-button-bg: #f44336"
         >
           清空 (Clear)
         </button>
 
         <button
           @click="handleSaveCurrent"
-          style="padding: 6px 10px; background-color: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 12px"
+          class="tool-button"
+          style="--tool-button-bg: #2e7d32"
         >
           儲存此次轉換
         </button>

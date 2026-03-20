@@ -159,7 +159,8 @@ const handleCopy = async (text: string, type: CopyStatus) => {
 
       <button
         @click="handleCopy(plainText, 'plain')"
-        style="position: absolute; top: 35px; right: 10px; z-index: 10; padding: 6px 12px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 12px; opacity: 0.85"
+        class="tool-button tool-button--compact"
+        style="position: absolute; top: 35px; right: 10px; z-index: 10; opacity: 0.85; --tool-button-bg: #007bff"
       >
         複製明文
       </button>
@@ -184,14 +185,16 @@ const handleCopy = async (text: string, type: CopyStatus) => {
     <div style="display: flex; gap: 10px; align-items: center">
       <button
         @click="handleConvert"
-        style="padding: 10px 20px; background-color: #1a73e8; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #1a73e8"
       >
         轉換 Base64 ↔ 明文 (使用 {{ encoding.toUpperCase() }})
       </button>
 
       <button
         @click="handleSaveCurrent"
-        style="padding: 10px 20px; background-color: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #2e7d32"
       >
         儲存此次轉換
       </button>
@@ -204,7 +207,8 @@ const handleCopy = async (text: string, type: CopyStatus) => {
 
       <button
         @click="handleCopy(base64Text, 'base64')"
-        style="position: absolute; top: 35px; right: 10px; z-index: 10; padding: 6px 12px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 12px; opacity: 0.85"
+        class="tool-button tool-button--compact"
+        style="position: absolute; top: 35px; right: 10px; z-index: 10; opacity: 0.85; --tool-button-bg: #007bff"
       >
         複製 Base64
       </button>

@@ -13,6 +13,7 @@ const TOOL_NAME_MAP: Record<ToolType, string> = {
   'markdown-previewer': 'Markdown Previewer',
   qrious: 'QRCode Previewer',
   'jwt-decoder': 'JWT Decoder',
+  'xslt-diff': 'XSLT 比較器',
 }
 
 const formatTime = (isoTime: string): string => {
@@ -67,7 +68,8 @@ onMounted(() => {
           </div>
           <button
             @click="handleDelete(item.id)"
-            style="padding: 6px 10px; background-color: #f44336; border: none; color: white; border-radius: 5px; cursor: pointer; white-space: nowrap"
+            class="tool-button tool-button--compact"
+            style="--tool-button-bg: #f44336"
           >
             刪除
           </button>

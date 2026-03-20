@@ -178,7 +178,8 @@ onMounted(() => {
         <div class="mb-4 flex items-center gap-3">
           <button
             @click="handleSaveEncode"
-            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white"
+            class="tool-button"
+            style="--tool-button-bg: #2e7d32"
           >
             儲存此次轉換
           </button>
@@ -215,7 +216,8 @@ onMounted(() => {
           <button
             @click="handleSaveDecode"
             :disabled="!decodeResult"
-            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+            class="tool-button"
+            style="--tool-button-bg: #2e7d32"
           >
             儲存此次轉換
           </button>

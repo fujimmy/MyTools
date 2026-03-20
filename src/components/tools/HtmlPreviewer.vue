@@ -141,14 +141,16 @@ onUnmounted(() => {
     <div style="display: flex; gap: 10px; margin-bottom: 12px; align-items: center">
       <button
         @click="handleSaveCurrent"
-        style="padding: 8px 15px; background-color: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #2e7d32"
       >
         儲存此次轉換
       </button>
 
       <button
         @click="handleFormat"
-        style="padding: 8px 15px; background-color: #1565c0; color: white; border: none; cursor: pointer; border-radius: 5px"
+        class="tool-button"
+        style="--tool-button-bg: #1565c0"
       >
         格式化 HTML
       </button>
