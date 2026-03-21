@@ -19,3 +19,7 @@
 - [ ] 新增 Cron Expression Helper（人類可讀與下次觸發時間）
 - [ ] 新增 SQL Formatter（格式化與壓縮）
 - [ ] 強化 JWT Decoder：加入簽章與 claim 驗證（exp、nbf、aud、iss）
+
+## Done
+
+- [x] 新增 SQL Practice 工具（家具訂單假資料、Schema 設定、JSON 匯入、前端 SQL 練習）

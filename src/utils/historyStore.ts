@@ -5,7 +5,8 @@ export type ToolType =
   | 'markdown-previewer'
   | 'qrious'
   | 'jwt-decoder'
-  | 'xslt-diff';
+  | 'xslt-diff'
+  | 'sql-practice';
 
 export interface ConversionHistoryItem {
   id: string;

@@ -27,6 +27,7 @@ const navItems: NavItem[] = [
       { id: 25, text: 'QRCode Previewer', shortText: 'Q', path: '/tools/qrious' },
       { id: 26, text: 'JWT Decoder', shortText: 'J', path: '/tools/jwt-decoder' },
       { id: 27, text: 'XSLT Compare', shortText: 'X', path: '/tools/xslt-diff' },
+      { id: 28, text: 'SQL Practice', shortText: 'S', path: '/tools/sql-practice' },
     ],
   },
   { id: 3, text: 'History', shortText: 'H', path: '/history' },

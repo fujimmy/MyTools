@@ -57,9 +57,16 @@ const toolCards: ToolCard[] = [
     description: '上傳或貼上兩份 XSLT，逐行比較差異',
     category: 'XML / XSLT',
   },
+  {
+    id: 'sql-practice',
+    name: 'SQL Practice',
+    path: '/tools/sql-practice',
+    description: '預設家具訂單資料、Schema 設定、JSON 匯入與 SQL 練習',
+    category: '資料與 SQL',
+  },
 ]
 
-const categories = ['編碼轉換', '數據格式化', '內容預覽', 'XML / XSLT']
+const categories = ['編碼轉換', '數據格式化', '內容預覽', 'XML / XSLT', '資料與 SQL']
 </script>
 
 <template>

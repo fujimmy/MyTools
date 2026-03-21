@@ -9,6 +9,8 @@ import JwtDecoder from '../components/tools/JwtDecoder.vue'
 import XsltDiff from '../components/tools/XsltDiff.vue'
 import HistoryPage from '../components/History.vue'
 
+const SqlPractice = () => import('../components/tools/SqlPractice.vue')
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,6 +22,7 @@ const router = createRouter({
     { path: '/tools/qrious', component: QRCodePreviewer },
     { path: '/tools/jwt-decoder', component: JwtDecoder },
     { path: '/tools/xslt-diff', component: XsltDiff },
+    { path: '/tools/sql-practice', component: SqlPractice },
     { path: '/history', component: HistoryPage },
     { path: '/tools/MarkdownPreviewer', redirect: '/tools/markdown-previewer' },
     { path: '/tools/QRious', redirect: '/tools/qrious' },

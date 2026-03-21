@@ -179,6 +179,7 @@ npm version patch --no-git-tag-version
 | Markdown Previewer | `/tools/markdown-previewer` | 即時渲染、`marked` 解析、儲存此次轉換 |
 | QRCode Previewer | `/tools/qrious` | 即時產生 QR Code、上傳圖片解碼、儲存此次轉換（編碼/解碼） |
 | XSLT 比較器 | `/tools/xslt-diff` | 上傳或貼上兩份 XSLT / XML，逐行比較並以左右分割視圖高亮差異、儲存此次轉換 |
+| SQL Practice | `/tools/sql-practice` | 預設家具訂單假資料、線上設定 master/detail schema、下載 JSON 範本、匯入資料並在前端執行 SQL 查詢 |
 | 存檔歷史 | `/history` | 顯示所有已儲存 raw data（input/output）、可單筆刪除 |
 
 ---
