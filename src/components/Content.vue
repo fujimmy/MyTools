@@ -58,6 +58,13 @@ const toolCards: ToolCard[] = [
     category: 'XML / XSLT',
   },
   {
+    id: 'sql-compare',
+    name: 'SQL 比較器',
+    path: '/tools/sql-compare',
+    description: '自訂條件擷取關鍵值並列出左右缺少清單',
+    category: '資料與 SQL',
+  },
+  {
     id: 'sql-practice',
     name: 'SQL Practice',
     path: '/tools/sql-practice',

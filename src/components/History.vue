@@ -14,6 +14,7 @@ const TOOL_NAME_MAP: Record<ToolType, string> = {
   qrious: 'QRCode Previewer',
   'jwt-decoder': 'JWT Decoder',
   'xslt-diff': 'XSLT 比較器',
+  'sql-compare': 'SQL 比較器',
   'sql-practice': 'SQL Practice',
 }
 

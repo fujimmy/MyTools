@@ -7,6 +7,7 @@ import MarkdownPreviewer from '../components/tools/MarkdownPreviewer.vue'
 import QRCodePreviewer from '../components/tools/QRious.vue'
 import JwtDecoder from '../components/tools/JwtDecoder.vue'
 import XsltDiff from '../components/tools/XsltDiff.vue'
+import SqlCompare from '../components/tools/SqlCompare.vue'
 import HistoryPage from '../components/History.vue'
 
 const SqlPractice = () => import('../components/tools/SqlPractice.vue')
@@ -22,6 +23,7 @@ const router = createRouter({
     { path: '/tools/qrious', component: QRCodePreviewer },
     { path: '/tools/jwt-decoder', component: JwtDecoder },
     { path: '/tools/xslt-diff', component: XsltDiff },
+    { path: '/tools/sql-compare', component: SqlCompare },
     { path: '/tools/sql-practice', component: SqlPractice },
     { path: '/history', component: HistoryPage },
     { path: '/tools/MarkdownPreviewer', redirect: '/tools/markdown-previewer' },

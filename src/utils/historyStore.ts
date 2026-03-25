@@ -6,6 +6,7 @@ export type ToolType =
   | 'qrious'
   | 'jwt-decoder'
   | 'xslt-diff'
+  | 'sql-compare'
   | 'sql-practice';
 
 export interface ConversionHistoryItem {
