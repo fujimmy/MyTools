@@ -74,6 +74,13 @@ const toolCards: ToolCard[] = [
     category: '數據格式化',
   },
   {
+    id: 'hidden-characters',
+    name: '隱藏字元檢視',
+    path: '/tools/hidden-characters',
+    description: '標示空白、換行、Tab 與 Unicode 零寬字元',
+    category: '數據格式化',
+  },
+  {
     id: 'timestamp-converter',
     name: 'Timestamp Converter',
     path: '/tools/timestamp-converter',

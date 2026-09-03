@@ -20,6 +20,7 @@ const TimestampConverter = () => import('../components/tools/TimestampConverter.
 const UuidUlidGenerator = () => import('../components/tools/UuidUlidGenerator.vue')
 const PomodoroTimer = () => import('../components/tools/PomodoroTimer.vue')
 const SqlPractice = () => import('../components/tools/SqlPractice.vue')
+const HiddenCharacters = () => import('../components/tools/HiddenCharacters.vue')
 const HistoryPage = () => import('../components/History.vue')
 
 const router = createRouter({
@@ -45,6 +46,7 @@ const router = createRouter({
     { path: '/tools/uuid-ulid-generator', component: UuidUlidGenerator },
     { path: '/tools/pomodoro-timer', component: PomodoroTimer },
     { path: '/tools/sql-practice', component: SqlPractice },
+    { path: '/tools/hidden-characters', component: HiddenCharacters },
     { path: '/history', component: HistoryPage },
     { path: '/tools/MarkdownPreviewer', redirect: '/tools/markdown-previewer' },
     { path: '/tools/QRious', redirect: '/tools/qrious' },

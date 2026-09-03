@@ -253,6 +253,7 @@ npm version patch --no-git-tag-version
 | Pomodoro Timer        | `/tools/pomodoro-timer`        | 可自訂專注/短休息/長休息參數、循環與自動開始規則，採無印良品風格介面                                                                                                                                                                          |
 | Timestamp Converter   | `/tools/timestamp-converter`   | Unix 秒/毫秒、ISO、本地時間互轉，支援自動判斷輸入格式與一鍵帶入現在時間                                                                                                                                                                       |
 | UUID / ULID Generator | `/tools/uuid-ulid-generator`   | 批次產生 UUID v4、UUID v7、ULID，支援 prefix/suffix、複製全部與儲存此次轉換                                                                                                                                                                   |
+| 隱藏字元檢視          | `/tools/hidden-characters`     | 貼上文字後標示空白、換行、Tab、控制字元與 Unicode 零寬字元，並列出位置與碼點                                                                                                                                                                  |
 | 存檔歷史              | `/history`                     | 顯示所有已儲存 raw data（input/output）、可單筆刪除                                                                                                                                                                                           |
 
 ---

@@ -39,6 +39,7 @@ const navItems: NavItem[] = [
       { id: 37, text: 'Timestamp Converter', shortText: 'T', path: '/tools/timestamp-converter' },
       { id: 38, text: 'UUID / ULID Generator', shortText: 'U', path: '/tools/uuid-ulid-generator' },
       { id: 39, text: 'Pomodoro Timer', shortText: 'P', path: '/tools/pomodoro-timer' },
+      { id: 40, text: 'Hidden Characters', shortText: 'H', path: '/tools/hidden-characters' },
     ],
   },
   { id: 3, text: 'History', shortText: 'H', path: '/history' },
